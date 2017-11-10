@@ -14,7 +14,8 @@ public class FirstBadVersion {
 
         int m = start + (end - start)/2;
 
-        if( isBadVersion(m) ){
+//        if( isBadVersion(m) ){
+        if(true){
             return findBadVersion(start, m);
         }else{
             return findBadVersion(m+1,end);
