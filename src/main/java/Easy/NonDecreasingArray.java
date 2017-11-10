@@ -1,3 +1,5 @@
+package Easy;
+
 class NonDecreasingArray {
     public boolean checkPossibility(int[] nums) {
         int flag = -1;

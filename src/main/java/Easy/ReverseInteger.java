@@ -1,3 +1,5 @@
+package Easy;
+
 class ReverseInteger{
     public int reverse(int x) {
         long result = 0;
