@@ -9,4 +9,19 @@ public class Q53 {
         }
         return maxSoFar;
     }
+
+    public int maxSubArray2(int[] nums) {
+        int max_cur = Integer.MIN_VALUE, maxSoFar = Integer.MIN_VALUE;
+        int[] maxRes = new int[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            if( max_cur < 0 ){
+                max_cur = nums[i];
+            }else {
+                max_cur += nums[i];
+            }
+            maxSoFar = Math.max(maxSoFar, max_cur);
+            maxRes[i] = maxSoFar;
+        }
+        return maxRes[nums.length-1];
+    }
 }
