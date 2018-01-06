@@ -8,6 +8,8 @@ import DesignPattern.Adapter.Ps2Adapter;
 import DesignPattern.Bridge.AbstractDraw;
 import DesignPattern.Bridge.CircleDraw;
 import DesignPattern.Bridge.RectangleDraw;
+import DesignPattern.ChainOfResponsibility.*;
+import DesignPattern.Command.*;
 import DesignPattern.Composite.AbstractComponent;
 import DesignPattern.Composite.Composite;
 import DesignPattern.Composite.LeafComponent;
@@ -29,7 +31,7 @@ import DesignPattern.SimpleFactory.SimpleFactory;
 
 public class mainDemo {
 
-    public static void main(String[] orgs) throws CloneNotSupportedException {
+    public static void main(String[] orgs) throws CloneNotSupportedException, IllegalAccessException {
         //Simple factory
         IShape shape = SimpleFactory.createShape("circle");
         shape.printShape();
@@ -128,5 +130,34 @@ public class mainDemo {
         img.display();
         img.display();
 
+        //Chain of Responsibility
+        Manager commManager = new CommonManager("CommManager");
+        Manager Majordomo = new Majordomo("Majordomo");
+        Manager GeneManager = new GeneralManager("GeneralManager");
+        commManager.setSuperior(Majordomo);
+        Majordomo.setSuperior(GeneManager);
+        
+        Request request = new Request();
+        request.setReqType("Leave");
+        for(int i = 1; i < 7; i++){
+            request.setNum(i);
+            commManager.requestApp(request);
+        }
+
+        //Command
+        RemoteControl control = new RemoteControl();
+        LightControl lightControl = new LightControl();
+        Command lightsOn1 = new LightOnCommand(lightControl);
+        Command lightsOff1 = new LightOffCommand(lightControl);
+        Command lightsOn2 = new LightOnCommand(lightControl);
+        Command lightsOff2 = new LightOffCommand(lightControl);
+
+        control.addCommand(lightsOn1);
+        control.addCommand(lightsOff1);
+        control.addCommand(lightsOn2);
+        control.cancelCommand(lightsOn1);
+        control.addCommand(lightsOff2);
+
+        control.pressButton();
     }
 }
