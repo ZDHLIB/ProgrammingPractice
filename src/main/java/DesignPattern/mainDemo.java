@@ -21,6 +21,11 @@ import DesignPattern.Flyweight.AbstractWebSite;
 import DesignPattern.Flyweight.User;
 import DesignPattern.Flyweight.WebSiteFactory;
 import DesignPattern.Mediator.*;
+import DesignPattern.Memento.Caretaker;
+import DesignPattern.Memento.Memento;
+import DesignPattern.Memento.Originator;
+import DesignPattern.Observer.ConcreteObserver;
+import DesignPattern.Observer.ConcreteSubject;
 import DesignPattern.Prototype.ModelDeepPrototype;
 import DesignPattern.Prototype.ModelPrototype;
 import DesignPattern.Proxy.Image;
@@ -170,5 +175,30 @@ public class mainDemo {
 
         china.Declare("I am China");
         usa.Declare("I am Amarica");
+
+        //Memento
+        Originator originator = new Originator();
+        Caretaker caretaker = new Caretaker();
+
+        originator.setState("1");
+        originator.showState();
+        Memento memento = originator.createMemento();
+        caretaker.setMemento(memento);
+
+        originator.setState("2");
+        originator.showState();
+
+        originator.setMememto(memento);
+        originator.showState();
+
+        //Observer
+        ConcreteSubject concreteSubject = new ConcreteSubject();
+        concreteSubject.addObserver(new ConcreteObserver("Obs_A"));
+        concreteSubject.addObserver(new ConcreteObserver("Obs.B"));
+
+        concreteSubject.setSubjectState("1");
+        concreteSubject.notifyObserver();
+        concreteSubject.setSubjectState("2");
+        concreteSubject.notifyObserver();
     }
 }
