@@ -20,6 +20,7 @@ import DesignPattern.Factory.IFactory;
 import DesignPattern.Flyweight.AbstractWebSite;
 import DesignPattern.Flyweight.User;
 import DesignPattern.Flyweight.WebSiteFactory;
+import DesignPattern.Mediator.*;
 import DesignPattern.Prototype.ModelDeepPrototype;
 import DesignPattern.Prototype.ModelPrototype;
 import DesignPattern.Proxy.Image;
@@ -159,5 +160,15 @@ public class mainDemo {
         control.addCommand(lightsOff2);
 
         control.pressButton();
+
+        //Mediator
+        UnitedNationsSecurityCouncil UNSC = new UnitedNationsSecurityCouncil();
+        China china = new China(UNSC);
+        USA usa = new USA(UNSC);
+        UNSC.setCountryUSA(usa);
+        UNSC.setCountryChina(china);
+
+        china.Declare("I am China");
+        usa.Declare("I am Amarica");
     }
 }
