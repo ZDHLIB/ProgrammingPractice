@@ -20,6 +20,10 @@ import DesignPattern.Factory.IFactory;
 import DesignPattern.Flyweight.AbstractWebSite;
 import DesignPattern.Flyweight.User;
 import DesignPattern.Flyweight.WebSiteFactory;
+import DesignPattern.Interpreter.AndExpression;
+import DesignPattern.Interpreter.IExpression;
+import DesignPattern.Interpreter.OrExpression;
+import DesignPattern.Interpreter.TerminalExpression;
 import DesignPattern.Mediator.*;
 import DesignPattern.Memento.Caretaker;
 import DesignPattern.Memento.Memento;
@@ -33,6 +37,16 @@ import DesignPattern.Proxy.ProxyImage;
 import DesignPattern.Service.IColor;
 import DesignPattern.Service.IShape;
 import DesignPattern.SimpleFactory.SimpleFactory;
+import DesignPattern.State.CloseState;
+import DesignPattern.State.Context;
+import DesignPattern.Strategy.ConcreteStrategyA;
+import DesignPattern.Strategy.ConcreteStrategyB;
+import DesignPattern.Strategy.ConcreteStrategyC;
+import DesignPattern.Strategy.ContextStrategy;
+import DesignPattern.Template.AbstractTemplate;
+import DesignPattern.Template.ConcreteTemplateA;
+import DesignPattern.Template.ConcreteTemplateB;
+import DesignPattern.Visitor.*;
 
 
 public class mainDemo {
@@ -166,6 +180,19 @@ public class mainDemo {
 
         control.pressButton();
 
+        //Interpreter
+        IExpression robert = new TerminalExpression("Robert");
+        IExpression john = new TerminalExpression("John");
+        IExpression isMale = new OrExpression(robert, john);
+
+        IExpression julie = new TerminalExpression("Julie");
+        IExpression married = new TerminalExpression("Married");
+        IExpression isMarriedWoman = new AndExpression(julie, married);
+
+        System.out.println("John is male? " + isMale.interpret("John"));
+        System.out.println("Julie is a married women? " + isMarriedWoman.interpret("Married Julie"));
+
+
         //Mediator
         UnitedNationsSecurityCouncil UNSC = new UnitedNationsSecurityCouncil();
         China china = new China(UNSC);
@@ -200,5 +227,36 @@ public class mainDemo {
         concreteSubject.notifyObserver();
         concreteSubject.setSubjectState("2");
         concreteSubject.notifyObserver();
+
+        //State
+        Context context = new Context(new CloseState());
+        context.changeState();
+        context.changeState();
+
+        //Strategy
+        ContextStrategy contextStrategy = new ContextStrategy(new ConcreteStrategyA());
+        contextStrategy.action();
+        contextStrategy = new ContextStrategy(new ConcreteStrategyB());
+        contextStrategy.action();
+        contextStrategy = new ContextStrategy(new ConcreteStrategyC());
+        contextStrategy.action();
+
+        //Template
+        AbstractTemplate template;
+        template = new ConcreteTemplateA();
+        template.templateAction();
+        template = new ConcreteTemplateB();
+        template.templateAction();
+
+        //Visitor
+        ObjectStructure objectStructure = new ObjectStructure();
+        ConcreteVisitorA concreteVisitorA = new ConcreteVisitorA();
+        ConcreteVisitorB concreteVisitorB = new ConcreteVisitorB();
+
+        objectStructure.addElement(new ConcreteElementA());
+        objectStructure.addElement(new ConcreteElementB());
+
+        objectStructure.accept(concreteVisitorA);
+        objectStructure.accept(concreteVisitorB);
     }
 }
