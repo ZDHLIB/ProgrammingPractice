@@ -1,6 +1,6 @@
 package Easy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Q121Test {
     @Test

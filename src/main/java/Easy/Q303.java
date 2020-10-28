@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public class Q303 {
     int[] sums;
-    public NumArray(int[] nums) {
+    public void NumArray(int[] nums) {
         sums = new int[nums.length+1];
         sums[0] = 0;
         for(int i = 1; i <= nums.length; i++){

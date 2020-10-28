@@ -1,9 +1,6 @@
 package Easy;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
+import org.junit.jupiter.api.Test;
 public class Sqrt_x_Test {
     @Test
     public void mySqrt() throws Exception {
