@@ -1,6 +1,7 @@
 package DataStructure;
 
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Spliterator;
 
@@ -35,5 +36,7 @@ public class BasicArrays {
         Arrays.fill(arr1, 11);
         Spliterator.OfInt split = Arrays.spliterator(arr1);
 
+        BitSet bs = new BitSet(512);
+        bs.flip(96);
     }
 }
